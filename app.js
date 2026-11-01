@@ -156,7 +156,7 @@
   function mountHero() {
     const hero = document.querySelector('.hero'); if (!hero) return;
     const layers = hero.querySelectorAll('.hero-photo'), chip = document.getElementById('hero-chip'), dotsEl = document.getElementById('hero-dots');
-    const plane = hero.querySelector('.plane'), tog = document.getElementById('motion');
+    const plane = hero.querySelector('.plane');
     const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let cur = 0, front = 0, timer = 0, token = 0;
     SLIDES.forEach((s) => {
@@ -200,7 +200,8 @@
       return new Promise((res, rej) => { const img = new Image(); img.onload = () => res(img); img.onerror = rej; img.src = url; })
         .then((img) => Promise.race([img.decode().catch(() => {}), new Promise((r) => setTimeout(r, 800))]));
     }
-    const paused = () => hero.classList.contains('paused') || document.hidden || reduced;
+    let hovering = false; // a temporary pause while the pointer or keyboard focus is in the hero; never undoes an explicit pause
+    const paused = () => hero.classList.contains('paused') || hovering || document.hidden || reduced;
     function schedule() { clearTimeout(timer); if (!paused()) timer = setTimeout(() => go((cur + 1) % SLIDES.length), FADE + HOLD); }
     async function go(i) {
       if (i === cur) return schedule();
@@ -230,8 +231,14 @@
     });
     const content = hero.querySelector('.hero-content');
     addEventListener('scroll', () => { content.style.transform = `translateY(${scrollY * 0.25}px)`; content.style.opacity = String(Math.max(0, 1 - scrollY / 500)); }, { passive: true });
-    const setTog = () => (tog.textContent = t(hero.classList.contains('paused') ? 'hero.play' : 'hero.pause'));
+    // icon-only pause/play at the end of the slide dots: stops the timer, zoom and sun together
+    const tog = h('button', { type: 'button', class: 'pp' }); dotsEl.append(tog);
+    if (reduced) tog.hidden = true;
+    const setTog = () => { const on = hero.classList.contains('paused'); tog.classList.toggle('is-paused', on); tog.setAttribute('aria-label', t(on ? 'hero.play.slides' : 'hero.pause.slides')); tog.setAttribute('aria-pressed', String(on)); };
     tog.addEventListener('click', () => { hero.classList.toggle('paused'); setTog(); schedule(); }); setTog(); store.subscribe(setTog);
+    const hold = (v) => () => { hovering = v; schedule(); };
+    hero.addEventListener('mouseenter', hold(true)); hero.addEventListener('mouseleave', hold(false));
+    hero.addEventListener('focusin', hold(true)); hero.addEventListener('focusout', (e) => { if (!hero.contains(e.relatedTarget)) hold(false)(); });
     hero.querySelector('.search').addEventListener('submit', (e) => { e.preventDefault(); location.href = 'https://www.lemonsim.com/esim'; });
   }
 
@@ -244,7 +251,7 @@
     const still = () => reduced || hero.classList.contains('paused') || document.hidden;
     const every = (ms, fn) => setInterval(() => { if (!still()) fn(); }, ms);
     const tog = hero.querySelector('[data-motion]');
-    const setTog = () => (tog.textContent = t(hero.classList.contains('paused') ? 'hero.play' : 'hero.pause'));
+    const setTog = () => { const on = hero.classList.contains('paused'); tog.classList.toggle('is-paused', on); tog.setAttribute('aria-label', t(on ? 'hero.play' : 'hero.pause')); tog.setAttribute('aria-pressed', String(on)); };
     tog.addEventListener('click', () => { hero.classList.toggle('paused'); setTog(); });
     if (reduced) tog.hidden = true;
     setTog(); store.subscribe(setTog);

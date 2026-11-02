@@ -302,7 +302,7 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
 @media (min-width:640px){.rec-alt{padding-left:16px;border-left:1px dashed rgba(202,138,4,.5)}.rec--sim .rec-grid--sim{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:639px){.rec-alt{grid-column:1/-1;padding-top:12px;border-top:1px dashed rgba(202,138,4,.5)}}
 .ct-label{margin:0;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:rgba(78,64,42,.7)}
-.ct-addr{margin:6px 0 16px;font-size:clamp(22px,3vw,30px);font-weight:800;color:#21180f;word-break:break-all;user-select:all}
+.ct-addr{margin:6px 0 4px;font-size:clamp(22px,3vw,30px);font-weight:800;color:#21180f;word-break:break-all;user-select:all}
 .ct-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
 .ct-send{display:inline-flex;text-decoration:none}
 .ct-copy{border:1px solid rgba(33,24,15,.25);border-radius:999px;background:#fff;color:#21180f;font:inherit;font-size:14px;font-weight:800;padding:11px 20px;cursor:pointer}
@@ -380,3 +380,9 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
 .compat-none{margin-top:12px;padding:14px 16px;border-radius:14px;background:#fefce8}
 .compat-none b{font-size:14px}.compat-none p{margin:4px 0 0;font-size:13px;font-weight:600;line-height:1.55;color:rgba(56,45,29,.85)}
 .compat-text{margin:0 0 10px;font-size:13px;font-weight:600;line-height:1.6;color:rgba(56,45,29,.85)}
+
+/* v14: support hours, pre-purchase note under the plans */
+.ct-hours{margin:0 0 16px;font-size:14px;font-weight:700;color:#2f6b3a}
+.buy-note{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(78,64,42,.14);font-size:12.5px;line-height:1.6;font-weight:600;color:rgba(78,64,42,.75)}
+.buy-note a,.buy-note .link-btn{font-weight:800}
+@media (max-width:640px){.buy-note{font-size:13px}}

@@ -339,3 +339,44 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
   .dev-label{font-size:18px}
   .phone{width:180px;height:360px;border-radius:34px;padding:10px}.qr{width:104px;height:104px}.pane{inset:54px 14px 20px}
 }
+/* rich text (translated strings with links) */
+.rich a,.link-btn{color:#21180f;font-weight:800;text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(202,138,4,.7)}
+.link-btn{display:inline;padding:0;border:0;background:none;font:inherit;cursor:pointer}
+.link-btn:focus-visible,.rich a:focus-visible{outline:2px solid #ca8a04;outline-offset:2px;border-radius:3px}
+/* How eSIM / SIM card works: numbered steps */
+.guide{display:grid;gap:18px}
+.guide-h{margin:12px 0 0;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#a16207}
+.guide-steps{list-style:none;margin:0;padding:0;display:grid;gap:14px}
+.guide-step{display:flex;gap:16px;padding:22px 24px;border-radius:16px;background:#fffaf0;box-shadow:0 8px 24px rgba(33,24,15,.07)}
+.guide-n{flex:none;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgb(253 224 71);font-size:14px;font-weight:800;color:#21180f}
+.guide-body{min-width:0;display:grid;gap:8px}
+.guide-body h3{margin:4px 0 0;font-size:19px;font-weight:800;color:#21180f}
+.guide-body p,.guide-list li,.guide-help{margin:0;font-size:14px;font-weight:600;line-height:1.7;color:rgba(56,45,29,.85)}
+.guide-list{margin:0;padding-left:18px;display:grid;gap:4px}
+.guide-dev{margin:0;font-size:13px;font-weight:600;line-height:1.7;color:rgba(78,64,42,.75)}
+.guide-help{padding:4px 2px}
+@media (max-width:640px){.guide-step{padding:18px 16px;gap:12px}.guide-body h3{font-size:17px}}
+/* checker v2 */
+.compat-needs{margin:0 0 14px;padding:0;list-style:none;display:grid;gap:6px}
+.compat-needs li{position:relative;padding-left:26px;font-size:14px;font-weight:700;color:#21180f}
+.compat-needs li::before{content:"✓";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:rgb(253 224 71);font-size:11px;font-weight:900;display:grid;place-items:center}
+.compat-fast{padding:14px 16px;border-radius:14px;background:#21180f;color:#fff}
+.compat-fast b{color:#fde047;font-size:13px}
+.compat-fast p{margin:4px 0 0;font-size:14px;font-weight:600;line-height:1.55}
+.compat-search{display:grid;gap:6px;margin-top:18px;font-size:13px;font-weight:800}
+.compat-search input{height:46px;padding:0 14px;border-radius:12px;border:1.5px solid rgba(33,24,15,.18);font:inherit;font-size:15px;background:#fff;color:#21180f}
+.compat-search input:focus-visible{outline:2px solid rgb(250 204 21);outline-offset:1px}
+.compat-brands{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.compat-chip{min-height:32px;padding:0 12px;border-radius:999px;border:1px solid rgba(33,24,15,.15);background:#fff;font:inherit;font-size:12px;font-weight:800;color:#382d1d;cursor:pointer}
+.compat-chip[aria-pressed="true"]{background:#21180f;border-color:#21180f;color:#fde047}
+.compat-chip:focus-visible{outline:2px solid #ca8a04;outline-offset:2px}
+.compat-count{margin:12px 0 0;font-size:12px;font-weight:700;color:rgba(78,64,42,.75)}
+.compat-count:empty{display:none}
+.compat-list{list-style:none;margin:8px 0 0;padding:0;max-height:240px;overflow:auto;border-radius:12px;border:1px solid rgba(33,24,15,.1)}
+.compat-group{padding:10px 14px;background:#fefce8;border-bottom:1px solid rgba(33,24,15,.08)}
+.compat-group b{font-size:13px}.compat-group p{margin:2px 0 0;font-size:12px;font-weight:600;line-height:1.5;color:rgba(78,64,42,.85)}
+.compat-row{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;border-bottom:1px solid rgba(33,24,15,.06);font-size:14px;font-weight:700}
+.compat-row em{flex:none;font-style:normal;font-size:12px;font-weight:800;color:#15803d}
+.compat-none{margin-top:12px;padding:14px 16px;border-radius:14px;background:#fefce8}
+.compat-none b{font-size:14px}.compat-none p{margin:4px 0 0;font-size:13px;font-weight:600;line-height:1.55;color:rgba(56,45,29,.85)}
+.compat-text{margin:0 0 10px;font-size:13px;font-weight:600;line-height:1.6;color:rgba(56,45,29,.85)}

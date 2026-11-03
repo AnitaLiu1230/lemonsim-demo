@@ -81,7 +81,7 @@
 .news-card .news-ok a{color:var(--lemon-300)}
 @media (max-width:767px){.news-card{grid-template-columns:1fr;padding:28px;border-radius:22px}.news-h{font-size:22px}}
 
-/* footer: 2 columns on phones, 3 on tablets, 6 on wide screens */
+/* footer: 2 columns on phones, 3 on tablets, brand + 5 equal link columns on wide screens */
 /* footer (Codex debate/v4 r37-r38, owner edits): brand, 5 link columns, payment */
 .foot-grid{display:grid;gap:32px 24px;align-items:start;grid-template-columns:repeat(2,minmax(0,1fr));
   grid-template-areas:"brand brand" "products tools" "help company" "follow follow" "pay pay"}
@@ -89,7 +89,9 @@
 .foot-help{grid-area:help}.foot-company{grid-area:company}.foot-follow{grid-area:follow}
 @media (max-width:767px){.foot-grid>.foot-follow>div.grid{display:flex!important;flex-wrap:wrap;gap:2px 20px!important}}
 @media (min-width:768px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"brand brand pay" "products tools help" "company follow ."}}
-@media (min-width:1280px){.foot-grid{grid-template-columns:minmax(200px,1fr) repeat(6,max-content);column-gap:clamp(16px,1.6vw,40px);grid-template-areas:"brand products tools help company follow pay"}}
+/* wide screens: payment sits under the brand so the five link columns can share one equal width in every language */
+@media (min-width:1280px){.foot-grid{grid-template-columns:240px repeat(5,minmax(0,1fr));grid-template-rows:auto 1fr;gap:28px 24px;
+  grid-template-areas:"brand products tools help company follow" "pay products tools help company follow"}}
 /* one rhythm for every column: 15px heading, 12px to the list, 24px rows 10px apart */
 .foot-grid>div>p.font-extrabold{font-size:15px;line-height:24px;margin:0}
 .foot-grid>div>div.grid{margin-top:12px!important;gap:10px!important;font-size:14px;line-height:24px}

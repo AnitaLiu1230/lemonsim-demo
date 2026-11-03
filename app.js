@@ -102,6 +102,7 @@
       else if ((m = txt.match(/^(.+) travel data from \$(\d+(?:\.\d+)?)$/)) && byEnglish[m[1]]) {
         const k = byEnglish[m[1]], p = +m[2]; nodes.push({ n, render: () => pad(t('pd.h1', { country: t(k), price: money(p) })) });
       }
+      else if ((m = txt.match(/^(.+) Guide Blog$/)) && (byEnglish[m[1]] || '').startsWith('d.')) { const k = byEnglish[m[1]]; nodes.push({ n, render: () => pad(t('pd.blog', { country: t(k) })) }); }
       else if ((m = txt.match(/^(\d+) days$/))) { const d = m[1]; nodes.push({ n, render: () => pad(t('pd.days', { n: d })) }); }
       else if ((m = txt.match(/^Last updated on: (.+)$/))) { const d = new Date(m[1] + ' 12:00'); nodes.push({ n, render: () => pad(t('blog.updated', { date: date(d) })) }); }
     }
@@ -114,6 +115,10 @@
     document.querySelectorAll('[data-i18n]').forEach((el) => (el.textContent = t(el.dataset.i18n, { country: el.dataset.dest ? t('d.' + el.dataset.dest) : '', n: el.dataset.n || '' })));
     document.querySelectorAll('[data-i18n-html]').forEach((el) => (el.innerHTML = t(el.dataset.i18nHtml))); // our own strings, may hold links
     document.querySelectorAll('[data-i18n-ph]').forEach((el) => (el.placeholder = t(el.dataset.i18nPh)));
+    document.querySelectorAll('[data-sub]').forEach((el) => {   // destination subtitle: live English text, a generic sentence elsewhere
+      el.dataset.en = el.dataset.en || el.textContent.trim();
+      el.textContent = store.state.lang === 'en' ? el.dataset.en : t('pd.sub', { country: t('d.' + el.dataset.sub) });
+    });
     document.querySelectorAll('[data-i18n-label]').forEach((el) => el.setAttribute('aria-label', t(el.dataset.i18nLabel)));
     nodes.forEach((x) => (x.attr ? (x.n[x.attr] = x.render()) : (x.n.nodeValue = x.render())));
   }
@@ -281,6 +286,27 @@
       const render = () => made.forEach((f) => f()); render(); store.subscribe(render);
     }
 
+    // About: a flight hops between the 13 destinations; the arc draws, the plane follows it, the next dot lights up
+    const map = hero.querySelector('[data-route]');
+    if (map) {
+      const dots = [...map.querySelectorAll('.rdot')], arc = map.querySelector('.route-arc'), trail = map.querySelector('.route-trail');
+      const plane = map.querySelector('.route-plane'), label = map.querySelector('.route-label'), text = label.querySelector('text');
+      const at = (g) => g.getAttribute('transform').match(/[\d.]+/g).map(Number);
+      let k = 0;
+      const hop = () => {
+        const [x1, y1] = at(dots[k]); k = (k + 1) % dots.length; const [x2, y2] = at(dots[k]);
+        const lift = Math.max(40, Math.hypot(x2 - x1, y2 - y1) * 0.3);
+        const d = `M${x1} ${y1} Q${(x1 + x2) / 2} ${Math.min(y1, y2) - lift} ${x2} ${y2}`;
+        trail.setAttribute('d', arc.getAttribute('d') || d); arc.setAttribute('d', d);
+        plane.style.offsetPath = `path('${d}')`;
+        [arc, plane].forEach((el) => { el.classList.remove('go'); void el.getBoundingClientRect(); el.classList.add('go'); });
+        dots.forEach((g, i) => g.classList.toggle('on', i === k));
+        label.setAttribute('transform', `translate(${x2} ${y2})`); text.textContent = t('d.' + dots[k].dataset.dest);
+      };
+      if (reduced) { dots.forEach((g) => g.classList.add('on')); label.remove(); plane.remove(); }
+      else { hop(); every(2600, hop); store.subscribe(() => (text.textContent = t('d.' + dots[k].dataset.dest))); }
+    }
+
     // SIM card: light up one device connection at a time
     const devs = hero.querySelectorAll('.dev');
     if (devs.length) {
@@ -399,8 +425,8 @@
       <h2 id="compat-title" data-i18n="cmp.title"></h2>
       <div data-mode="esim">
         <p class="compat-intro" data-i18n="cmp.need"></p>
-        <ul class="compat-needs"><li data-i18n="cmp.need1"></li><li data-i18n="cmp.need2"></li></ul>
-        <div class="compat-fast"><b data-i18n="cmp.fast"></b><p data-i18n="cmp.fast.p"></p></div>
+        <ul class="compat-needs"><li data-i18n="cmp.need1"></li><li data-i18n="cmp.need2"></li><li data-i18n="cmp.need3"></li></ul>
+        <div class="compat-fast"><b data-i18n="cmp.fast"></b><p data-i18n="cmp.fast.p"></p><p class="compat-fastnote" data-i18n="cmp.fast.note"></p></div>
         <label class="compat-search"><span data-i18n="cmp.search"></span><input type="search" id="cmp-q" autocomplete="off" data-i18n-ph="cmp.search.ph"></label>
         <div class="compat-brands" role="group" aria-labelledby="compat-title"></div>
         <p class="compat-count" role="status" aria-live="polite"></p>
@@ -461,6 +487,51 @@
     store.subscribe(() => { if (dlg.open) render(); });
   }
 
+  /* ---------- package choice: the live plan URL (/usa-esim/5gb-7days) is the destination page with one package picked ----------
+     Here that is usa-esim.html?plan=5gb-7days. A fixed bar shows the pick, its price and "Buy now" (checkout stays on lemonsim.com). */
+  function mountPlans() {
+    const bar = document.querySelector('[data-pbar]'); if (!bar) return;
+    const { slug, dest, kind } = bar.dataset;
+    const rows = [...document.querySelectorAll('[data-plan]')], dlg = document.querySelector('[data-pdlg]');
+    const info = (row) => { const [, gb, days] = row.dataset.plan.match(/^(\d+gb|unlimited)-(\d+)days$/); return { gb, days, usd: +row.dataset.usd }; };
+    const dataLabel = (gb) => (gb === 'unlimited' ? t('pd.unl') : gb.replace('gb', ' GB'));
+    const fit = () => document.documentElement.style.setProperty('--pbar-h', `${bar.offsetHeight}px`);
+    let cur = null;
+    function render() {
+      if (!cur) return;
+      const p = info(cur);
+      bar.querySelector('[data-pbar-name]').textContent = [t('d.' + dest), dataLabel(p.gb), t('pd.days', { n: p.days })].join(' · ');
+      bar.querySelector('[data-pbar-price]').textContent = money(p.usd);
+      dlg.querySelector('[data-pdlg-title]').textContent = bar.querySelector('[data-pbar-name]').textContent;
+      const nets = [...document.querySelectorAll('.op-row:not(.op-row--country) b')].map((b) => b.textContent).join(' · ');
+      const items = [['pb.dest', t('d.' + dest)], ['pb.data', dataLabel(p.gb)], ['pb.valid', t('pd.days', { n: p.days })],
+        ['pb.rule', t(kind === 'esim' ? 'val.esim' : 'val.sim')], nets && ['pb.nets', nets], ['pb.hotspot', t('pb.yes')],
+        ['pb.topup', t(kind === 'esim' ? 'pb.topup.esim' : 'pb.topup.sim'), true], kind === 'sim' && ['pb.delivery', t('pb.delivery.v')]].filter(Boolean);
+      const list = dlg.querySelector('[data-pdlg-list]'); list.textContent = '';
+      items.forEach(([k, v, html]) => { const dd = h('dd'); dd[html ? 'innerHTML' : 'textContent'] = v; list.append(h('div', {}, h('dt', {}, t(k)), dd)); });
+      fit();
+    }
+    function pick(row, remember) {
+      cur = row;
+      rows.forEach((r) => r.setAttribute('aria-checked', String(r === row)));
+      const list = row.closest('[data-plans]');
+      if (list.hidden) document.querySelector(`[data-ptab="${list.dataset.plans}"]`)?.click();
+      bar.querySelector('[data-pbar-buy]').href = `https://www.lemonsim.com/${slug}/${row.dataset.plan}`;
+      bar.hidden = false; document.body.classList.add('has-pbar');
+      if (remember) { const u = new URL(location.href); u.searchParams.set('plan', row.dataset.plan); history.replaceState(history.state, '', u); }
+      render();
+    }
+    rows.forEach((r) => {
+      r.addEventListener('click', (e) => { e.preventDefault(); pick(r, true); });
+      r.addEventListener('keydown', (e) => { if (e.key === ' ') { e.preventDefault(); pick(r, true); } });
+    });
+    const want = rows.find((r) => r.dataset.plan === new URLSearchParams(location.search).get('plan'));
+    if (want) pick(want, false);   // unknown ?plan= values are ignored
+    bar.querySelector('[data-pdlg-open]').addEventListener('click', () => { applyI18n(); render(); dlg.showModal(); });
+    dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });
+    store.subscribe(render); addEventListener('resize', fit);
+  }
+
   /* ---------- newsletter (simulated): nothing is sent; shows the welcome email preview ---------- */
   function mountNewsletter() {
     const f = document.getElementById('news-form'); if (!f) return;
@@ -504,7 +575,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     startAtTop();
     collect(document.body);
-    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountCompat(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
+    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountPlans(); mountCompat(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
     store.subscribe(applyI18n);
   });
 })();

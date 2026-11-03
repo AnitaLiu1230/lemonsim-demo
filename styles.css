@@ -386,3 +386,99 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
 .buy-note{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(78,64,42,.14);font-size:12.5px;line-height:1.6;font-weight:600;color:rgba(78,64,42,.75)}
 .buy-note a,.buy-note .link-btn{font-weight:800}
 @media (max-width:640px){.buy-note{font-size:13px}}
+
+/* ================= v15 ================= */
+/* checker */
+.compat-fastnote{margin:6px 0 0;font-size:12px;font-weight:700;color:rgba(78,64,42,.7)}
+
+/* About hero: flights between the destinations */
+.phero-stats{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.phero-stats li{padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);font-size:12px;font-weight:800;color:#fde047}
+.routemap{width:100%;max-width:620px;height:auto;overflow:visible}
+.rdot-core{fill:rgba(250,204,21,.6);transition:fill .4s}
+.rdot-ring{fill:none;stroke:rgba(250,204,21,0);stroke-width:5}
+.rdot.on .rdot-core{fill:#fde047}
+.rdot.on .rdot-ring{stroke:rgba(250,204,21,.7);animation:ring 1.6s ease-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes ring{from{transform:scale(.5);opacity:1}to{transform:scale(1.8);opacity:0}}
+.route-trail{fill:none;stroke:rgba(250,204,21,.3);stroke-width:5;stroke-dasharray:10 14}
+.route-arc{fill:none;stroke:#facc15;stroke-width:6;stroke-linecap:round;stroke-dasharray:1200;stroke-dashoffset:1200}
+.route-arc.go{animation:draw 1.5s ease-in-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.route-plane{fill:#fff;offset-rotate:auto;offset-distance:100%}
+.route-plane path{transform:scale(3)}
+.route-plane.go{animation:fly 1.5s ease-in-out forwards}
+@keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
+.route-label rect{fill:rgba(27,19,11,.85);stroke:rgba(250,204,21,.5);stroke-width:2}
+.route-label text{fill:#fff;font:800 36px Inter,sans-serif}
+
+/* Contact hero: an email goes out, support types, a reply comes back; 24/7 clock */
+.mailscene{width:100%;max-width:500px;height:auto;overflow:visible}
+.mail-arc{fill:none;stroke:rgba(250,204,21,.35);stroke-width:3;stroke-dasharray:6 10}
+.ms-body{fill:#0d0905;stroke:#6b5a3e;stroke-width:3}.ms-screen{fill:#2b2015}.ms-line{fill:rgba(255,255,255,.18)}
+.ms-bubble{fill:#facc15}.ms-check{fill:none;stroke:#21180f;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:0}
+.ms-reply{animation:reply 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ms-reply .ms-check{animation:tick 6s ease-in-out infinite}
+@keyframes reply{0%,62%{opacity:0;transform:scale(.6)}70%,96%{opacity:1;transform:scale(1)}100%{opacity:0}}
+@keyframes tick{0%,72%{stroke-dashoffset:40}82%,100%{stroke-dashoffset:0}}
+.ms-halo{fill:rgba(250,204,21,.12);animation:halo 6s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes halo{0%,30%{transform:scale(.9);opacity:.4}40%{transform:scale(1.12);opacity:1}55%,100%{transform:scale(.9);opacity:.4}}
+.ms-disc{fill:#2b2015;stroke:rgba(250,204,21,.6);stroke-width:2}.ms-band{fill:none;stroke:#facc15;stroke-width:6;stroke-linecap:round}.ms-cup{fill:#facc15}
+.ms-typing{opacity:0;animation:typing 6s ease-in-out infinite}
+.ms-typing circle{fill:#21180f;animation:dot 1s ease-in-out infinite}
+.ms-typing circle:nth-child(3){animation-delay:.15s}.ms-typing circle:nth-child(4){animation-delay:.3s}
+@keyframes typing{0%,38%{opacity:0}42%,58%{opacity:1}62%,100%{opacity:0}}
+@keyframes dot{50%{transform:translateY(-3px)}}
+.mail-env{fill:#fffbeb;stroke:#a16207;stroke-width:2.5;stroke-linejoin:round;opacity:0;offset-path:path('M150 230 Q260 90 372 200');offset-rotate:0deg;animation:env 6s ease-in-out infinite}
+.mail-env path{fill:none}
+@keyframes env{0%{offset-distance:0%;opacity:0}5%{opacity:1}34%{offset-distance:100%;opacity:1}38%,100%{offset-distance:100%;opacity:0}}
+.ms-pill{fill:rgba(255,255,255,.08);stroke:rgba(250,204,21,.45);stroke-width:2}.ms-face{fill:none;stroke:#fde047;stroke-width:3}
+.ms-hand{stroke:#fde047;stroke-width:3;stroke-linecap:round;transform-box:view-box;transform-origin:230px 352px;animation:spin 6s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ms-clock text{fill:#fff;font:800 22px Inter,sans-serif}
+.phero-mail{margin:18px 0 0;font-size:clamp(20px,2.4vw,26px);font-weight:800;color:#fff;user-select:all;word-break:break-all}
+@media (prefers-reduced-motion:reduce){.ms-reply{opacity:1}.ms-typing,.mail-env{opacity:0}}
+
+/* compact guide strip on plan list + destination pages */
+.strip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:36px 0 0;padding:0;list-style:none}
+.strip--3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.strip li{display:grid;gap:8px;align-content:start;padding:20px;border-radius:16px;background:#fffdf5;box-shadow:0 10px 30px rgba(33,24,15,.08)}
+.strip-n{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:rgb(250 204 21);font-weight:800;color:#21180f}
+.strip b{font-size:16px;font-weight:800;color:#21180f}
+.strip li span:last-child{font-size:14px;font-weight:600;line-height:1.6;color:rgba(78,64,42,.8)}
+.strip-note{margin:18px auto 0;max-width:720px;text-align:center;font-size:13px;font-weight:700;color:rgba(78,64,42,.8)}
+.strip-more{margin:10px 0 0;text-align:center}.strip-more a{font-size:14px;font-weight:800;color:#21180f;text-decoration:underline;text-underline-offset:4px}
+@media (max-width:900px){.strip{grid-template-columns:repeat(2,minmax(0,1fr))}.strip--3{grid-template-columns:1fr}}
+@media (max-width:520px){.strip{grid-template-columns:1fr}}
+
+/* package choice + fixed bar */
+[data-plan][aria-checked="true"]{border-color:#21180f!important;background:#fffbeb!important;box-shadow:0 0 0 3px rgba(250,204,21,.55)}
+.pbar{position:fixed;left:0;right:0;bottom:0;z-index:55;background:#fff;border-top:1px solid rgba(33,24,15,.1);box-shadow:0 -4px 24px rgba(0,0,0,.08);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pbar-in{display:flex;align-items:center;justify-content:space-between;gap:20px;padding-top:14px;padding-bottom:14px}
+.pbar-info{min-width:0}
+.pbar-name{margin:0;font-size:16px;font-weight:800;color:#21180f}
+.pbar-check{margin:4px 0 0;font-size:12px;font-weight:600;color:rgba(78,64,42,.7)}
+.pbar-act{display:flex;align-items:center;gap:18px;flex-shrink:0}
+.pbar-details{white-space:nowrap;display:inline-flex;align-items:center;gap:6px;height:38px;padding:0 14px;border:1px solid rgba(33,24,15,.15);border-radius:999px;background:#fff;font-size:13px;font-weight:800;color:#21180f;cursor:pointer}
+.pbar-details:hover{background:#fffbeb}
+.pbar-total{margin:0;font-size:14px;font-weight:600;color:rgba(78,64,42,.8)}.pbar-total strong{margin-left:4px;font-size:20px;font-weight:800;color:#21180f}
+.pbar-buywrap{display:grid;justify-items:center;gap:2px}
+.pbar-buy{min-width:120px;padding:10px 26px;font-size:14px}
+.pbar-demo{font-size:11px;font-weight:600;color:rgba(78,64,42,.6)}
+body.has-pbar{padding-bottom:var(--pbar-h,96px)}
+html{scroll-padding-bottom:var(--pbar-h,0px)}
+body.has-pbar .demo-badge{bottom:calc(var(--pbar-h,96px) + 10px)}
+.pdlg-list{display:grid;gap:0;margin:18px 0 0}
+.pdlg-list div{display:grid;grid-template-columns:130px minmax(0,1fr);gap:12px;padding:10px 0;border-bottom:1px solid rgba(33,24,15,.08)}
+.pdlg-list dt{font-size:13px;font-weight:800;color:rgba(78,64,42,.75)}
+.pdlg-list dd{margin:0;font-size:14px;font-weight:600;color:#21180f}
+.pdlg-list a{font-weight:800;text-decoration:underline}
+.pdlg-refund{margin:16px 0 0;font-size:13px;font-weight:600;color:rgba(78,64,42,.8)}
+@media (max-width:760px){
+  .pbar-in{flex-direction:column;align-items:stretch;gap:10px;padding-top:10px;padding-bottom:10px}
+  .pbar-act{justify-content:space-between;gap:10px}
+  .pbar-check{font-size:12px}
+  .pbar-buy{min-width:0;padding:10px 18px}
+  .pbar-details{height:34px;padding:0 10px;font-size:12px;white-space:nowrap}.pbar-total{white-space:nowrap;font-size:12px}.pbar-total strong{font-size:17px}
+  .pbar-demo{white-space:nowrap;font-size:10px}.pbar-name{font-size:15px}
+  .pdlg-list div{grid-template-columns:1fr;gap:2px}
+}

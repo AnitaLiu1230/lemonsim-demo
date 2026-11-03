@@ -82,11 +82,24 @@
 @media (max-width:767px){.news-card{grid-template-columns:1fr;padding:28px;border-radius:22px}.news-h{font-size:22px}}
 
 /* footer: 2 columns on phones, 3 on tablets, 6 on wide screens */
-.foot-grid{display:grid;gap:32px;grid-template-columns:repeat(2,minmax(0,1fr))}
+.foot-grid{display:grid;gap:32px 24px;align-items:start;grid-template-columns:repeat(2,minmax(0,1fr))}
 .foot-grid>:first-child,.foot-grid>.foot-pay{grid-column:1/-1}
-@media (min-width:768px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media (min-width:1280px){.foot-grid{grid-template-columns:1.3fr repeat(4,minmax(0,1fr)) 1.4fr}.foot-grid>:first-child,.foot-grid>.foot-pay{grid-column:auto}}
-.soc-link{display:inline-flex;align-items:center;gap:8px;padding:2px 0}
+@media (min-width:768px){.foot-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1280px){.foot-grid{grid-template-columns:1.6fr repeat(4,minmax(0,1fr)) 1.3fr}.foot-grid>:first-child,.foot-grid>.foot-pay{grid-column:auto}}
+/* one rhythm for every column: 15px heading, 12px to the list, 24px rows 10px apart */
+.foot-grid>div>p.font-extrabold{font-size:15px;line-height:24px;margin:0}
+.foot-grid>div>div.grid{margin-top:12px!important;gap:10px!important;font-size:14px;line-height:24px}
+.foot-grid>div>div.grid>a{display:flex;align-items:center;min-height:24px}
+.foot-tag{margin:12px 0 0;max-width:260px;font-size:14px;line-height:22px;color:rgba(255,255,255,.7)}
+.foot-label{margin:16px 0 0;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.foot-brand .foot-mail{display:inline-block;margin-top:4px;font-size:14px;font-weight:700;line-height:24px}
+.foot-pay .pay-badges{margin-top:12px!important}
+.foot-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:18px 24px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;font-weight:700;color:rgba(255,255,255,.6)}
+.foot-bar p{margin:0}
+.foot-legal{display:flex;flex-wrap:wrap;gap:8px 20px}
+.foot-legal a:hover{color:#fff}
+@media (max-width:767px){.foot-bar{flex-direction:column-reverse;align-items:flex-start}}
+.soc-link{display:flex;align-items:center;gap:8px;padding:0}
 .soc-link .soc{width:16px;height:16px;flex:none}
 .soc-link:hover{color:#fff}
 .pay-badges{display:grid;grid-template-columns:repeat(3,46px);gap:8px}
@@ -330,7 +343,8 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
   main .text-\[10px\],main .text-\[11px\]{font-size:12px!important;line-height:1.5!important}
   .op-tech,.pd-note,.rec-tag,.phero .step-pill,.phero [class*="pill"],.stop-label,.jcard small,.phero-caption{font-size:12px!important}
   footer a{display:inline-flex;align-items:center;min-height:36px}
-  footer .soc-link{min-height:40px}
+  footer .soc-link,.foot-grid>div>div.grid>a{min-height:36px}
+  .foot-grid>div>div.grid{gap:2px!important}
   main a.inline-flex{min-height:40px}
   .rec-all{padding-block:10px}
   .hero-dots button:not(.pp){height:32px;padding:14px 0}

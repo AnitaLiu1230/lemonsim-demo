@@ -541,8 +541,5 @@ body.has-pbar .demo-badge{bottom:calc(var(--pbar-h,96px) + 10px)}
 .cp-brand ul{list-style:none;margin:0;padding:14px 18px 18px;display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:8px 20px}
 .cp-brand li{font-size:14px;font-weight:700;color:#21180f}
 .cp-brand li::before{content:"✓";margin-right:8px;font-size:12px;font-weight:900;color:#15803d}
-.cp-more{display:inline-flex;align-items:center;gap:8px;margin-top:18px;font-size:14px;font-weight:800;color:#21180f;text-decoration:underline;text-underline-offset:4px}
-.cp-cta{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:20px;padding:28px 32px;border-radius:22px;background:#21180f}
-.cp-cta h2{margin:0;font-size:22px;font-weight:800;color:#fff}
 @media (max-width:767px){.cp-tool>div:last-child{order:-1}}
-@media (max-width:640px){.cp-tool{padding:22px}.cp-sec h2{font-size:23px}.cp-cta{padding:24px}.cp-brand ul{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.cp-tool{padding:22px}.cp-sec h2{font-size:23px}.cp-brand ul{grid-template-columns:1fr 1fr}}

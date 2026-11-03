@@ -82,23 +82,14 @@
 @media (max-width:767px){.news-card{grid-template-columns:1fr;padding:28px;border-radius:22px}.news-h{font-size:22px}}
 
 /* footer: 2 columns on phones, 3 on tablets, 6 on wide screens */
-/* footer (Codex debate/v4 r37-r38): brand + payment, 5 link columns, destination strip */
+/* footer (Codex debate/v4 r37-r38, owner edits): brand, 5 link columns, payment */
 .foot-grid{display:grid;gap:32px 24px;align-items:start;grid-template-columns:repeat(2,minmax(0,1fr));
   grid-template-areas:"brand brand" "products tools" "help company" "follow follow" "pay pay"}
 .foot-brand{grid-area:brand}.foot-pay{grid-area:pay}.foot-products{grid-area:products}.foot-tools{grid-area:tools}
 .foot-help{grid-area:help}.foot-company{grid-area:company}.foot-follow{grid-area:follow}
 @media (max-width:767px){.foot-grid>.foot-follow>div.grid{display:flex!important;flex-wrap:wrap;gap:2px 20px!important}}
 @media (min-width:768px){.foot-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"brand brand pay" "products tools help" "company follow ."}}
-@media (min-width:1280px){.foot-grid{grid-template-columns:1.55fr repeat(5,minmax(0,1fr));grid-template-rows:auto 1fr;row-gap:24px;
-  grid-template-areas:"brand products tools help company follow" "pay products tools help company follow"}
-  .foot-products,.foot-tools,.foot-help,.foot-company,.foot-follow{align-self:start}}
-.foot-dest{display:grid;gap:10px;padding-block:20px;border-top:1px solid rgba(255,255,255,.1)}
-.foot-dest-row{display:grid;gap:6px}
-@media (min-width:768px){.foot-dest-row{grid-template-columns:150px 1fr;gap:16px;align-items:baseline}}
-.foot-dest .foot-label{margin:0}
-.foot-dest-row>div{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;font-weight:600;line-height:22px}
-.foot-dest-row a{color:rgba(255,255,255,.7)}.foot-dest-row a:hover{color:#fff}
-@media (max-width:767px){.foot-dest-row a{display:inline-flex;align-items:center;min-height:32px}}
+@media (min-width:1280px){.foot-grid{grid-template-columns:minmax(200px,1fr) repeat(6,max-content);column-gap:clamp(16px,1.6vw,40px);grid-template-areas:"brand products tools help company follow pay"}}
 /* one rhythm for every column: 15px heading, 12px to the list, 24px rows 10px apart */
 .foot-grid>div>p.font-extrabold{font-size:15px;line-height:24px;margin:0}
 .foot-grid>div>div.grid{margin-top:12px!important;gap:10px!important;font-size:14px;line-height:24px}

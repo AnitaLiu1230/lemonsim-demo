@@ -386,35 +386,10 @@
   /* ---------- device compatibility checker ----------
      Model-level list (checked 2026-11-02 against manufacturer pages and Airalo's public device list). A match means
      "this model has eSIM" with the brand's regional caveat shown as text; no match never means "unsupported". */
-  const PHONES = {
-    apple: ['iPhone XR', 'iPhone XS', 'iPhone XS Max', 'iPhone 11', 'iPhone 11 Pro', 'iPhone 11 Pro Max', 'iPhone SE (2020)', 'iPhone SE (2022)',
-      'iPhone 12 mini', 'iPhone 12', 'iPhone 12 Pro', 'iPhone 12 Pro Max', 'iPhone 13 mini', 'iPhone 13', 'iPhone 13 Pro', 'iPhone 13 Pro Max',
-      'iPhone 14', 'iPhone 14 Plus', 'iPhone 14 Pro', 'iPhone 14 Pro Max', 'iPhone 15', 'iPhone 15 Plus', 'iPhone 15 Pro', 'iPhone 15 Pro Max',
-      'iPhone 16', 'iPhone 16 Plus', 'iPhone 16 Pro', 'iPhone 16 Pro Max', 'iPhone 16e', 'iPhone 17', 'iPhone 17 Pro', 'iPhone 17 Pro Max', 'iPhone 17e', 'iPhone Air',
-      'iPhone 18 Pro', 'iPhone 18 Pro Max', 'iPad (7th gen or later)', 'iPad Air (3rd gen or later)', 'iPad mini (5th gen or later)', 'iPad Pro 11-inch', 'iPad Pro 12.9-inch (3rd gen or later)'],
-    samsung: ['Galaxy S20', 'Galaxy S20+', 'Galaxy S20 Ultra', 'Galaxy S21', 'Galaxy S21+', 'Galaxy S21 Ultra', 'Galaxy S22', 'Galaxy S22+', 'Galaxy S22 Ultra',
-      'Galaxy S23', 'Galaxy S23+', 'Galaxy S23 Ultra', 'Galaxy S23 FE', 'Galaxy S24', 'Galaxy S24+', 'Galaxy S24 Ultra', 'Galaxy S24 FE',
-      'Galaxy S25', 'Galaxy S25+', 'Galaxy S25 Ultra', 'Galaxy S25 Edge', 'Galaxy Note 20', 'Galaxy Note 20 Ultra', 'Galaxy Z Fold', 'Galaxy Z Fold2', 'Galaxy Z Fold3',
-      'Galaxy Z Fold4', 'Galaxy Z Fold5', 'Galaxy Z Fold6', 'Galaxy Z Flip', 'Galaxy Z Flip3', 'Galaxy Z Flip4', 'Galaxy Z Flip5', 'Galaxy Z Flip6',
-      'Galaxy A23 5G', 'Galaxy A35', 'Galaxy A36', 'Galaxy A54', 'Galaxy A55', 'Galaxy A56', 'Galaxy A17', 'Galaxy XCover7 Pro'],
-    google: ['Pixel 3', 'Pixel 3 XL', 'Pixel 3a', 'Pixel 3a XL', 'Pixel 4', 'Pixel 4 XL', 'Pixel 4a', 'Pixel 4a 5G', 'Pixel 5', 'Pixel 5a', 'Pixel 6', 'Pixel 6 Pro', 'Pixel 6a',
-      'Pixel 7', 'Pixel 7 Pro', 'Pixel 7a', 'Pixel 8', 'Pixel 8 Pro', 'Pixel 8a', 'Pixel Fold', 'Pixel 9', 'Pixel 9 Pro', 'Pixel 9 Pro XL', 'Pixel 9 Pro Fold', 'Pixel 9a',
-      'Pixel 10', 'Pixel 10 Pro', 'Pixel 10 Pro Fold', 'Pixel 11', 'Pixel 11 Pro', 'Pixel 11 Pro XL', 'Pixel 11 Pro Fold'],
-    xiaomi: ['Xiaomi 12T Pro', 'Xiaomi 13', 'Xiaomi 13 Pro', 'Xiaomi 13 Lite', 'Xiaomi 13T', 'Xiaomi 13T Pro', 'Xiaomi 14', 'Xiaomi 14 Pro', 'Xiaomi 14T', 'Xiaomi 14T Pro',
-      'Xiaomi 15', 'Xiaomi 15 Ultra', 'Xiaomi 15T', 'Xiaomi 15T Pro', 'Redmi Note 13 Pro', 'Redmi Note 13 Pro+', 'Redmi Note 14 Pro', 'Redmi Note 14 Pro+'],
-    oppo: ['OPPO Find X3', 'OPPO Find X3 Pro', 'OPPO Find X5', 'OPPO Find X5 Pro', 'OPPO Find X8', 'OPPO Find X8 Pro', 'OPPO Find X9', 'OPPO Find X9 Pro',
-      'OPPO Find N2 Flip', 'OPPO Find N5', 'OPPO Reno14', 'OPPO Reno14 Pro'],
-    honor: ['HONOR Magic4 Pro', 'HONOR Magic5 Pro', 'HONOR Magic6 Pro', 'HONOR Magic7 Pro', 'HONOR Magic V2', 'HONOR Magic V3', 'HONOR Magic V5',
-      'HONOR 90', 'HONOR 200', 'HONOR 200 Pro', 'HONOR 400', 'HONOR 400 Pro'],
-    huawei: ['HUAWEI P40', 'HUAWEI P40 Pro', 'HUAWEI Mate 40 Pro'],
-    oneplus: ['OnePlus 11', 'OnePlus 12', 'OnePlus 13', 'OnePlus 13R', 'OnePlus 15', 'OnePlus Open'],
-    motorola: ['Motorola Edge 40 Pro', 'Motorola Edge 50 Pro', 'Motorola Edge 50 Ultra', 'Motorola Edge 50 Fusion', 'Motorola Edge 60', 'Motorola Edge 60 Pro',
-      'Motorola Razr 40', 'Motorola Razr 40 Ultra', 'Motorola Razr 50', 'Motorola Razr 50 Ultra', 'Motorola Razr 2024', 'Motorola Razr+ 2024', 'Motorola Razr 2025', 'Motorola Razr+ 2025'],
-    sony: ['Xperia 1 IV', 'Xperia 1 V', 'Xperia 1 VI', 'Xperia 1 VII', 'Xperia 5 IV', 'Xperia 5 V', 'Xperia 10 V', 'Xperia 10 VI'],
-    vivo: ['vivo X100 Pro', 'vivo X200', 'vivo X200 Pro', 'vivo X300', 'vivo X300 Pro', 'vivo V40', 'vivo V50'],
-    other: ['Nothing Phone (3a) Pro', 'Fairphone 4', 'Fairphone 5'],
-  };
-  const BRAND = { apple: 'Apple', samsung: 'Samsung', google: 'Google', xiaomi: 'Xiaomi', oppo: 'OPPO', honor: 'HONOR', huawei: 'HUAWEI', oneplus: 'OnePlus', motorola: 'Motorola', sony: 'Sony', vivo: 'vivo', other: 'Other' };
+  /* PHONES:start — generated from tools/data/phones.json by build_pages.py */
+  const PHONES = {"apple": ["iPhone XR", "iPhone XS", "iPhone XS Max", "iPhone 11", "iPhone 11 Pro", "iPhone 11 Pro Max", "iPhone SE (2020)", "iPhone SE (2022)", "iPhone 12 mini", "iPhone 12", "iPhone 12 Pro", "iPhone 12 Pro Max", "iPhone 13 mini", "iPhone 13", "iPhone 13 Pro", "iPhone 13 Pro Max", "iPhone 14", "iPhone 14 Plus", "iPhone 14 Pro", "iPhone 14 Pro Max", "iPhone 15", "iPhone 15 Plus", "iPhone 15 Pro", "iPhone 15 Pro Max", "iPhone 16", "iPhone 16 Plus", "iPhone 16 Pro", "iPhone 16 Pro Max", "iPhone 16e", "iPhone 17", "iPhone 17 Pro", "iPhone 17 Pro Max", "iPhone 17e", "iPhone Air", "iPhone 18 Pro", "iPhone 18 Pro Max", "iPad (7th gen or later)", "iPad Air (3rd gen or later)", "iPad mini (5th gen or later)", "iPad Pro 11-inch", "iPad Pro 12.9-inch (3rd gen or later)"], "samsung": ["Galaxy S20", "Galaxy S20+", "Galaxy S20 Ultra", "Galaxy S21", "Galaxy S21+", "Galaxy S21 Ultra", "Galaxy S22", "Galaxy S22+", "Galaxy S22 Ultra", "Galaxy S23", "Galaxy S23+", "Galaxy S23 Ultra", "Galaxy S23 FE", "Galaxy S24", "Galaxy S24+", "Galaxy S24 Ultra", "Galaxy S24 FE", "Galaxy S25", "Galaxy S25+", "Galaxy S25 Ultra", "Galaxy S25 Edge", "Galaxy Note 20", "Galaxy Note 20 Ultra", "Galaxy Z Fold", "Galaxy Z Fold2", "Galaxy Z Fold3", "Galaxy Z Fold4", "Galaxy Z Fold5", "Galaxy Z Fold6", "Galaxy Z Flip", "Galaxy Z Flip3", "Galaxy Z Flip4", "Galaxy Z Flip5", "Galaxy Z Flip6", "Galaxy A23 5G", "Galaxy A35", "Galaxy A36", "Galaxy A54", "Galaxy A55", "Galaxy A56", "Galaxy A17", "Galaxy XCover7 Pro"], "google": ["Pixel 3", "Pixel 3 XL", "Pixel 3a", "Pixel 3a XL", "Pixel 4", "Pixel 4 XL", "Pixel 4a", "Pixel 4a 5G", "Pixel 5", "Pixel 5a", "Pixel 6", "Pixel 6 Pro", "Pixel 6a", "Pixel 7", "Pixel 7 Pro", "Pixel 7a", "Pixel 8", "Pixel 8 Pro", "Pixel 8a", "Pixel Fold", "Pixel 9", "Pixel 9 Pro", "Pixel 9 Pro XL", "Pixel 9 Pro Fold", "Pixel 9a", "Pixel 10", "Pixel 10 Pro", "Pixel 10 Pro Fold", "Pixel 11", "Pixel 11 Pro", "Pixel 11 Pro XL", "Pixel 11 Pro Fold"], "xiaomi": ["Xiaomi 12T Pro", "Xiaomi 13", "Xiaomi 13 Pro", "Xiaomi 13 Lite", "Xiaomi 13T", "Xiaomi 13T Pro", "Xiaomi 14", "Xiaomi 14 Pro", "Xiaomi 14T", "Xiaomi 14T Pro", "Xiaomi 15", "Xiaomi 15 Ultra", "Xiaomi 15T", "Xiaomi 15T Pro", "Redmi Note 13 Pro", "Redmi Note 13 Pro+", "Redmi Note 14 Pro", "Redmi Note 14 Pro+"], "oppo": ["OPPO Find X3", "OPPO Find X3 Pro", "OPPO Find X5", "OPPO Find X5 Pro", "OPPO Find X8", "OPPO Find X8 Pro", "OPPO Find X9", "OPPO Find X9 Pro", "OPPO Find N2 Flip", "OPPO Find N5", "OPPO Reno14", "OPPO Reno14 Pro"], "honor": ["HONOR Magic4 Pro", "HONOR Magic5 Pro", "HONOR Magic6 Pro", "HONOR Magic7 Pro", "HONOR Magic V2", "HONOR Magic V3", "HONOR Magic V5", "HONOR 90", "HONOR 200", "HONOR 200 Pro", "HONOR 400", "HONOR 400 Pro"], "huawei": ["HUAWEI P40", "HUAWEI P40 Pro", "HUAWEI Mate 40 Pro"], "oneplus": ["OnePlus 11", "OnePlus 12", "OnePlus 13", "OnePlus 13R", "OnePlus 15", "OnePlus Open"], "motorola": ["Motorola Edge 40 Pro", "Motorola Edge 50 Pro", "Motorola Edge 50 Ultra", "Motorola Edge 50 Fusion", "Motorola Edge 60", "Motorola Edge 60 Pro", "Motorola Razr 40", "Motorola Razr 40 Ultra", "Motorola Razr 50", "Motorola Razr 50 Ultra", "Motorola Razr 2024", "Motorola Razr+ 2024", "Motorola Razr 2025", "Motorola Razr+ 2025"], "sony": ["Xperia 1 IV", "Xperia 1 V", "Xperia 1 VI", "Xperia 1 VII", "Xperia 5 IV", "Xperia 5 V", "Xperia 10 V", "Xperia 10 VI"], "vivo": ["vivo X100 Pro", "vivo X200", "vivo X200 Pro", "vivo X300", "vivo X300 Pro", "vivo V40", "vivo V50"], "other": ["Nothing Phone (3a) Pro", "Fairphone 4", "Fairphone 5"]};
+  const BRAND = {"apple": "Apple", "samsung": "Samsung", "google": "Google", "xiaomi": "Xiaomi", "oppo": "OPPO", "honor": "HONOR", "huawei": "HUAWEI", "oneplus": "OnePlus", "motorola": "Motorola", "sony": "Sony", "vivo": "vivo", "other": "Other"};
+  /* PHONES:end */
   const NOTE = (b) => (['apple', 'samsung', 'google'].includes(b) ? `cmp.note.${b}` : 'cmp.note.region');
   const norm = (x) => x.toLowerCase().replace(/[^a-z0-9+]/g, '');
 
@@ -441,12 +416,13 @@
         <p class="compat-text" data-i18n="cmp.sim.dual"></p>
         <p class="compat-text rich" data-i18n-html="cmp.sim.esim"></p>
       </div>
-      <details class="compat-more"><summary data-i18n="cmp.unlock"></summary><p data-i18n="cmp.unlock.p"></p></details>`;
+      <details class="compat-more"><summary data-i18n="cmp.unlock"></summary><p data-i18n="cmp.unlock.p"></p></details>
+      <a class="compat-guide" href="esim-compatible-phones.html"><span data-i18n="cp.guide"></span> <i class="iconfont icon-right" aria-hidden="true"></i></a>`;
     document.body.append(dlg);
     const q = dlg.querySelector('#cmp-q'), list = dlg.querySelector('.compat-list'), none = dlg.querySelector('.compat-none');
     const count = dlg.querySelector('.compat-count'), brands = dlg.querySelector('.compat-brands');
-    const listnote = dlg.querySelector('.compat-listnote');
-    let brand = 'all', opener = null;
+    const listnote = dlg.querySelector('.compat-listnote'), guide = dlg.querySelector('.compat-guide');
+    let brand = 'all', opener = null, mode = 'esim';
     ['all', ...Object.keys(PHONES)].forEach((b) => {
       const chip = h('button', { type: 'button', class: 'compat-chip', 'data-brand': b, 'aria-pressed': String(b === 'all') });
       chip.addEventListener('click', () => { brand = b; brands.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === chip))); render(); });
@@ -471,10 +447,12 @@
       none.hidden = browsing || n > 0;
       listnote.hidden = browsing || n === 0;
       count.textContent = browsing ? '' : t('cmp.count', { n });
+      guide.href = mode === 'sim' ? 'esim-compatible-phones.html#sim'
+        : 'esim-compatible-phones.html' + (q.value.trim() ? '?q=' + encodeURIComponent(q.value.trim()) : '');   // the page picks up the search
     }
     q.addEventListener('input', render);
-    function open(mode, from) {
-      opener = from;
+    function open(m, from) {
+      opener = from; mode = m;
       dlg.querySelectorAll('[data-mode]').forEach((el) => (el.hidden = el.dataset.mode !== mode));
       applyI18n(); render(); dlg.showModal();
       if (mode === 'esim') q.focus();
@@ -482,11 +460,60 @@
     // delegated, so links inside translated text (re-rendered on language change) keep working
     document.addEventListener('click', (e) => {
       const b = e.target.closest('[data-compat]'); if (!b) return;
+      // the popup is for buying (destination pages); everywhere else a checker link is a plain link to the page
+      if (b.tagName === 'A' && !b.closest('dialog') && !document.querySelector('[data-pbar]')) {
+        if (!document.querySelector('[data-compat-page]')) return;
+        e.preventDefault();   // already on the page: jump to the search (or the SIM card section)
+        const to = document.getElementById(b.dataset.compat === 'sim' ? 'sim' : 'search');
+        to.scrollIntoView({ behavior: 'smooth' }); if (to.id === 'search') document.getElementById('cp-q').focus({ preventScroll: true });
+        return;
+      }
       e.preventDefault(); if (dlg.open) dlg.close(); open(b.dataset.compat, b.closest('dialog') ? opener : b);
     });
     dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close(); });   // click on the backdrop
     dlg.addEventListener('close', () => { if (opener && opener.isConnected) opener.focus(); });
     store.subscribe(() => { if (dlg.open) render(); });
+  }
+
+  /* ---------- the checker page (esim-compatible-phones): the static brand list is the result list, filtered in place ---------- */
+  function mountCompatPage() {
+    const page = document.querySelector('[data-compat-page]'); if (!page) return;
+    const q = page.querySelector('#cp-q'), brands = page.querySelector('.compat-brands'), count = page.querySelector('.compat-count');
+    const none = page.querySelector('.compat-none'), reset = page.querySelector('.cp-reset'), listnote = page.querySelector('.compat-listnote');
+    const groups = [...page.querySelectorAll('.cp-brand')];
+    let brand = 'all';
+    ['all', ...Object.keys(PHONES)].forEach((b) => {
+      const chip = h('button', { type: 'button', class: 'compat-chip', 'data-brand': b, 'aria-pressed': String(b === 'all') });
+      chip.addEventListener('click', () => { brand = b; brands.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x === chip))); render(); });
+      brands.append(chip);
+    });
+    function render() {
+      brands.querySelectorAll('button').forEach((x) => (x.textContent = x.dataset.brand === 'all' ? t('cmp.all') : BRAND[x.dataset.brand]));
+      const k = norm(q.value), browsing = !k && brand === 'all';
+      let n = 0;
+      groups.forEach((g) => {
+        const b = g.dataset.brand, rows = [...g.querySelectorAll('li')];
+        let hits = 0;
+        rows.forEach((li) => {
+          const ok = (brand === 'all' || b === brand) && (!k || norm(li.textContent).includes(k) || norm(BRAND[b] + li.textContent).includes(k));
+          li.hidden = !ok; hits += ok;
+        });
+        g.hidden = !hits; g.open = !browsing && hits > 0; n += hits;
+        const c = g.querySelector('.cp-n'); c.textContent = t('cp.models', { n: browsing ? c.dataset.n : hits });
+      });
+      none.hidden = browsing || n > 0;
+      reset.hidden = browsing;
+      listnote.hidden = n === 0;
+      count.textContent = browsing ? '' : t('cmp.count', { n });
+      const url = new URL(location.href);   // keep ?q= in the address so a search can be shared; clearing removes it
+      if (q.value.trim()) url.searchParams.set('q', q.value.trim()); else url.searchParams.delete('q');
+      try { history.replaceState(null, '', url); } catch (e) { /* file:// and sandboxed frames */ }
+    }
+    q.value = new URLSearchParams(location.search).get('q') || '';
+    q.addEventListener('input', render);
+    reset.addEventListener('click', () => { q.value = ''; brand = 'all'; brands.querySelectorAll('button').forEach((x) => x.setAttribute('aria-pressed', String(x.dataset.brand === 'all'))); render(); q.focus(); });
+    store.subscribe(render);
+    render();
   }
 
   /* ---------- package choice: the live plan URL (/usa-esim/5gb-7days) is the destination page with one package picked ----------
@@ -577,7 +604,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     startAtTop();
     collect(document.body);
-    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountPlans(); mountCompat(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
+    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountPlans(); mountCompat(); mountCompatPage(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
     store.subscribe(applyI18n);
   });
 })();

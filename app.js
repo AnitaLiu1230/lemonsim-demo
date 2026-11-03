@@ -506,7 +506,7 @@
       const nets = [...document.querySelectorAll('.op-row:not(.op-row--country) b')].map((b) => b.textContent).join(' · ');
       const items = [['pb.dest', t('d.' + dest)], ['pb.data', dataLabel(p.gb)], ['pb.valid', t('pd.days', { n: p.days })],
         ['pb.rule', t(kind === 'esim' ? 'val.esim' : 'val.sim')], nets && ['pb.nets', nets], ['pb.hotspot', t('pb.yes')],
-        ['pb.topup', t(kind === 'esim' ? 'pb.topup.esim' : 'pb.topup.sim'), true], kind === 'sim' && ['pb.delivery', t('pb.delivery.v')]].filter(Boolean);
+        ['pb.topup', t(kind === 'esim' ? 'pb.topup.esim' : 'pb.topup.sim'), true], kind === 'sim' && ['pb.delivery', t('pb.delivery.v')], kind === 'sim' && ['pb.addr', t('pb.addr.v')]].filter(Boolean);
       const list = dlg.querySelector('[data-pdlg-list]'); list.textContent = '';
       items.forEach(([k, v, html]) => { const dd = h('dd'); dd[html ? 'innerHTML' : 'textContent'] = v; list.append(h('div', {}, h('dt', {}, t(k)), dd)); });
       fit();

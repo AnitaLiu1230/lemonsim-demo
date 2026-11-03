@@ -87,7 +87,7 @@
   const nodes = []; // {node, render()}
   function collect(root) {
     const walk = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
-      acceptNode: (n) => (n.parentElement.closest('.hero, .phero, script, .demo-badge, [data-i18n], [data-i18n-html]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
+      acceptNode: (n) => (n.parentElement.closest('.hero, .phero, script, .demo-badge, [data-i18n], [data-i18n-html], [data-calc-live]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT),
     });
     for (let n = walk.nextNode(); n; n = walk.nextNode()) {
       const raw = n.nodeValue, txt = raw.trim(); if (!txt) continue;
@@ -516,6 +516,185 @@
     render();
   }
 
+  /* ---------- travel data calculator (travel-data-calculator.html; Codex debate/v4 r32-r36) ----------
+     Rates, presets and the capped-plan catalogue come from build_pages.py. estimate() mirrors dc_estimate() in
+     tools/content_pages.py; both are checked against tools/data/data_calc_fixtures.json (LS.calcSelfTest() here). */
+  /* DATACALC:start — generated from tools/data/data_rates.json and the destination pages by build_pages.py */
+  const DC = {"version":1,"updated":"2026-11","buffer":0.15,"activities":[{"id":"maps","unit":"hour","low":5,"high":20,"basis":"estimate"},{"id":"social","unit":"hour","low":100,"high":300,"basis":"estimate"},{"id":"shortvideo","unit":"hour","low":500,"high":900,"basis":"estimate"},{"id":"stream","unit":"hour","quality":true,"basis":"netflix"},{"id":"calls","unit":"hour","low":540,"high":1080,"basis":"zoom"},{"id":"voice","unit":"hour","low":20,"high":40,"basis":"estimate"},{"id":"music","unit":"hour","low":43,"high":144,"basis":"spotify"},{"id":"web","unit":"hour","low":30,"high":80,"basis":"estimate"},{"id":"photos","unit":"photo","low":2,"high":5,"basis":"estimate"},{"id":"vidup","unit":"minute","low":50,"high":150,"basis":"estimate"},{"id":"laptop","unit":"hour","low":100,"high":300,"basis":"estimate"}],"quality":{"low":{"low":167,"high":300},"standard":{"low":700,"high":1000},"hd":{"low":3000,"high":3000}},"limits":{"hour":[0,24,0.25],"photo":[0,500,1],"minute":[0,240,1],"days":[1,90]},"presets":{"light":{"quality":"standard","a":{"maps":1,"social":0.5,"shortvideo":0,"stream":0,"calls":0,"voice":0.25,"music":0,"web":1,"photos":10,"vidup":0,"laptop":0}},"typical":{"quality":"standard","a":{"maps":1.5,"social":1,"shortvideo":0.5,"stream":0,"calls":0.25,"voice":0.25,"music":0.5,"web":1.5,"photos":20,"vidup":0.5,"laptop":0}},"heavy":{"quality":"standard","a":{"maps":2,"social":1.5,"shortvideo":1.5,"stream":1,"calls":0.5,"voice":0.5,"music":1,"web":2,"photos":40,"vidup":3,"laptop":0}}},"default":{"dest":"usa","days":7,"preset":"typical"},"examples":[{"id":"ex1","dest":"europe","days":3,"preset":"light"},{"id":"ex2","dest":"japan","days":14,"preset":"typical"},{"id":"ex3","dest":"usa","days":30,"preset":"custom","quality":"standard","a":{"maps":1.5,"social":1,"shortvideo":0.5,"stream":0,"calls":1,"voice":0.25,"music":0.5,"web":1.5,"photos":20,"vidup":0.5,"laptop":3}}],"sources":{"netflix":"https://help.netflix.com/en/node/87","spotify":"https://support.spotify.com/ca-en/article/audio-quality/","zoom":"https://support.zoom.com/hc/en/article?id=zm_kb&sysparm_article=KB0060748"}};
+  const DC_PLANS = {"usa":[{"id":"1gb-3days","gb":1,"days":3,"usd":3.99,"url":"usa-esim.html?plan=1gb-3days"},{"id":"3gb-3days","gb":3,"days":3,"usd":9.99,"url":"usa-esim.html?plan=3gb-3days"},{"id":"3gb-7days","gb":3,"days":7,"usd":10.59,"url":"usa-esim.html?plan=3gb-7days"},{"id":"5gb-7days","gb":5,"days":7,"usd":13.99,"url":"usa-esim.html?plan=5gb-7days"},{"id":"10gb-7days","gb":10,"days":7,"usd":25.99,"url":"usa-esim.html?plan=10gb-7days"},{"id":"5gb-15days","gb":5,"days":15,"usd":14.59,"url":"usa-esim.html?plan=5gb-15days"},{"id":"7gb-15days","gb":7,"days":15,"usd":21.99,"url":"usa-esim.html?plan=7gb-15days"},{"id":"10gb-15days","gb":10,"days":15,"usd":26.99,"url":"usa-esim.html?plan=10gb-15days"},{"id":"20gb-15days","gb":20,"days":15,"usd":49.99,"url":"usa-esim.html?plan=20gb-15days"},{"id":"5gb-30days","gb":5,"days":30,"usd":14.99,"url":"usa-esim.html?plan=5gb-30days"},{"id":"10gb-30days","gb":10,"days":30,"usd":27.99,"url":"usa-esim.html?plan=10gb-30days"},{"id":"15gb-30days","gb":15,"days":30,"usd":38.99,"url":"usa-esim.html?plan=15gb-30days"},{"id":"20gb-30days","gb":20,"days":30,"usd":51.99,"url":"usa-esim.html?plan=20gb-30days"},{"id":"50gb-30days","gb":50,"days":30,"usd":119.99,"url":"usa-esim.html?plan=50gb-30days"},{"id":"6gb-90days","gb":6,"days":90,"usd":17.99,"url":"usa-esim.html?plan=6gb-90days"},{"id":"20gb-90days","gb":20,"days":90,"usd":52.99,"url":"usa-esim.html?plan=20gb-90days"},{"id":"7gb-365days","gb":7,"days":365,"usd":23.99,"url":"usa-esim.html?plan=7gb-365days"},{"id":"12gb-365days","gb":12,"days":365,"usd":34.99,"url":"usa-esim.html?plan=12gb-365days"},{"id":"24gb-365days","gb":24,"days":365,"usd":59.99,"url":"usa-esim.html?plan=24gb-365days"}],"canada":[{"id":"unlimited-3days","gb":null,"days":3,"usd":19.0,"url":"canada-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":27.0,"url":"canada-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":32.0,"url":"canada-esim.html?plan=unlimited-7days","unl":true}],"mexico":[{"id":"unlimited-3days","gb":null,"days":3,"usd":12.5,"url":"mexico-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":18.0,"url":"mexico-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":25.0,"url":"mexico-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":32.0,"url":"mexico-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":40.0,"url":"mexico-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":59.0,"url":"mexico-esim.html?plan=unlimited-30days","unl":true},{"id":"unlimited-40days","gb":null,"days":40,"usd":60.0,"url":"mexico-esim.html?plan=unlimited-40days","unl":true}],"japan":[{"id":"1gb-3days","gb":1,"days":3,"usd":3.99,"url":"japan-esim.html?plan=1gb-3days"},{"id":"3gb-3days","gb":3,"days":3,"usd":7.99,"url":"japan-esim.html?plan=3gb-3days"},{"id":"1gb-7days","gb":1,"days":7,"usd":4.99,"url":"japan-esim.html?plan=1gb-7days"},{"id":"3gb-7days","gb":3,"days":7,"usd":8.99,"url":"japan-esim.html?plan=3gb-7days"},{"id":"5gb-7days","gb":5,"days":7,"usd":12.99,"url":"japan-esim.html?plan=5gb-7days"},{"id":"10gb-7days","gb":10,"days":7,"usd":23.99,"url":"japan-esim.html?plan=10gb-7days"},{"id":"3gb-15days","gb":3,"days":15,"usd":9.99,"url":"japan-esim.html?plan=3gb-15days"},{"id":"5gb-15days","gb":5,"days":15,"usd":13.99,"url":"japan-esim.html?plan=5gb-15days"},{"id":"10gb-15days","gb":10,"days":15,"usd":24.99,"url":"japan-esim.html?plan=10gb-15days"},{"id":"20gb-15days","gb":20,"days":15,"usd":49.99,"url":"japan-esim.html?plan=20gb-15days"},{"id":"5gb-30days","gb":5,"days":30,"usd":14.99,"url":"japan-esim.html?plan=5gb-30days"},{"id":"10gb-30days","gb":10,"days":30,"usd":24.99,"url":"japan-esim.html?plan=10gb-30days"},{"id":"20gb-30days","gb":20,"days":30,"usd":52.99,"url":"japan-esim.html?plan=20gb-30days"},{"id":"50gb-30days","gb":50,"days":30,"usd":125.99,"url":"japan-esim.html?plan=50gb-30days"}],"thailand":[{"id":"10gb-7days","gb":10,"days":7,"usd":18.99,"url":"thailand-esim.html?plan=10gb-7days"},{"id":"20gb-7days","gb":20,"days":7,"usd":28.99,"url":"thailand-esim.html?plan=20gb-7days"},{"id":"30gb-7days","gb":30,"days":7,"usd":38.99,"url":"thailand-esim.html?plan=30gb-7days"},{"id":"50gb-7days","gb":50,"days":7,"usd":54.99,"url":"thailand-esim.html?plan=50gb-7days"},{"id":"10gb-15days","gb":10,"days":15,"usd":19.99,"url":"thailand-esim.html?plan=10gb-15days"},{"id":"20gb-15days","gb":20,"days":15,"usd":29.99,"url":"thailand-esim.html?plan=20gb-15days"},{"id":"30gb-15days","gb":30,"days":15,"usd":39.99,"url":"thailand-esim.html?plan=30gb-15days"},{"id":"50gb-15days","gb":50,"days":15,"usd":55.99,"url":"thailand-esim.html?plan=50gb-15days"},{"id":"100gb-15days","gb":100,"days":15,"usd":79.99,"url":"thailand-esim.html?plan=100gb-15days"}],"vietnam":[{"id":"unlimited-3days","gb":null,"days":3,"usd":11.5,"url":"vietnam-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":19.0,"url":"vietnam-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":27.0,"url":"vietnam-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":35.0,"url":"vietnam-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":49.0,"url":"vietnam-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":72.0,"url":"vietnam-esim.html?plan=unlimited-30days","unl":true}],"turkey":[{"id":"unlimited-3days","gb":null,"days":3,"usd":11.5,"url":"turkey-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":19.0,"url":"turkey-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":27.0,"url":"turkey-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":35.0,"url":"turkey-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":49.0,"url":"turkey-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":72.5,"url":"turkey-esim.html?plan=unlimited-30days","unl":true}],"uae":[{"id":"1gb-3days","gb":1,"days":3,"usd":4.99,"url":"uae-esim.html?plan=1gb-3days"},{"id":"3gb-3days","gb":3,"days":3,"usd":13.99,"url":"uae-esim.html?plan=3gb-3days"},{"id":"1gb-7days","gb":1,"days":7,"usd":5.99,"url":"uae-esim.html?plan=1gb-7days"},{"id":"3gb-7days","gb":3,"days":7,"usd":14.99,"url":"uae-esim.html?plan=3gb-7days"},{"id":"5gb-7days","gb":5,"days":7,"usd":21.99,"url":"uae-esim.html?plan=5gb-7days"},{"id":"10gb-7days","gb":10,"days":7,"usd":39.99,"url":"uae-esim.html?plan=10gb-7days"},{"id":"3gb-15days","gb":3,"days":15,"usd":15.99,"url":"uae-esim.html?plan=3gb-15days"},{"id":"5gb-15days","gb":5,"days":15,"usd":22.99,"url":"uae-esim.html?plan=5gb-15days"},{"id":"10gb-15days","gb":10,"days":15,"usd":41.99,"url":"uae-esim.html?plan=10gb-15days"},{"id":"20gb-15days","gb":20,"days":15,"usd":69.99,"url":"uae-esim.html?plan=20gb-15days"},{"id":"5gb-30days","gb":5,"days":30,"usd":23.99,"url":"uae-esim.html?plan=5gb-30days"},{"id":"10gb-30days","gb":10,"days":30,"usd":42.99,"url":"uae-esim.html?plan=10gb-30days"},{"id":"20gb-30days","gb":20,"days":30,"usd":73.99,"url":"uae-esim.html?plan=20gb-30days"}],"egypt":[{"id":"unlimited-3days","gb":null,"days":3,"usd":24.0,"url":"egypt-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":35.0,"url":"egypt-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":42.0,"url":"egypt-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":52.0,"url":"egypt-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":79.0,"url":"egypt-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":99.0,"url":"egypt-esim.html?plan=unlimited-30days","unl":true}],"morocco":[{"id":"unlimited-3days","gb":null,"days":3,"usd":17.5,"url":"morocco-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":29.0,"url":"morocco-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":35.0,"url":"morocco-esim.html?plan=unlimited-7days","unl":true}],"dominica":[{"id":"unlimited-3days","gb":null,"days":3,"usd":20.5,"url":"dominica-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":31.0,"url":"dominica-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":37.0,"url":"dominica-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":49.0,"url":"dominica-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":60.0,"url":"dominica-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":97.0,"url":"dominica-esim.html?plan=unlimited-30days","unl":true}],"costa-rica":[{"id":"unlimited-3days","gb":null,"days":3,"usd":20.5,"url":"costa-rica-esim.html?plan=unlimited-3days","unl":true},{"id":"unlimited-5days","gb":null,"days":5,"usd":29.5,"url":"costa-rica-esim.html?plan=unlimited-5days","unl":true},{"id":"unlimited-7days","gb":null,"days":7,"usd":36.5,"url":"costa-rica-esim.html?plan=unlimited-7days","unl":true},{"id":"unlimited-10days","gb":null,"days":10,"usd":43.0,"url":"costa-rica-esim.html?plan=unlimited-10days","unl":true},{"id":"unlimited-15days","gb":null,"days":15,"usd":49.0,"url":"costa-rica-esim.html?plan=unlimited-15days","unl":true},{"id":"unlimited-30days","gb":null,"days":30,"usd":89.0,"url":"costa-rica-esim.html?plan=unlimited-30days","unl":true}],"europe":[{"id":"1gb-3days","gb":1,"days":3,"usd":5.99,"url":"europe-esim.html?plan=1gb-3days"},{"id":"3gb-3days","gb":3,"days":3,"usd":9.99,"url":"europe-esim.html?plan=3gb-3days"},{"id":"1gb-7days","gb":1,"days":7,"usd":6.99,"url":"europe-esim.html?plan=1gb-7days"},{"id":"3gb-7days","gb":3,"days":7,"usd":10.99,"url":"europe-esim.html?plan=3gb-7days"},{"id":"5gb-7days","gb":5,"days":7,"usd":15.99,"url":"europe-esim.html?plan=5gb-7days"},{"id":"10gb-7days","gb":10,"days":7,"usd":26.99,"url":"europe-esim.html?plan=10gb-7days"},{"id":"3gb-15days","gb":3,"days":15,"usd":11.99,"url":"europe-esim.html?plan=3gb-15days"},{"id":"5gb-15days","gb":5,"days":15,"usd":16.99,"url":"europe-esim.html?plan=5gb-15days"},{"id":"10gb-15days","gb":10,"days":15,"usd":28.99,"url":"europe-esim.html?plan=10gb-15days"},{"id":"20gb-15days","gb":20,"days":15,"usd":54.99,"url":"europe-esim.html?plan=20gb-15days"},{"id":"5gb-30days","gb":5,"days":30,"usd":18.99,"url":"europe-esim.html?plan=5gb-30days"},{"id":"10gb-30days","gb":10,"days":30,"usd":29.99,"url":"europe-esim.html?plan=10gb-30days"},{"id":"20gb-30days","gb":20,"days":30,"usd":59.99,"url":"europe-esim.html?plan=20gb-30days"},{"id":"50gb-30days","gb":50,"days":30,"usd":129.99,"url":"europe-esim.html?plan=50gb-30days"}]};
+  const DC_UNL = ["europe","japan","thailand","uae","usa"];
+  /* DATACALC:end */
+  function dcAmounts(st) { const p = DC.presets[st.preset]; return p ? [p.a, p.quality] : [st.a, st.quality]; }
+  function estimate(st) {
+    const [a, q] = dcAmounts(st);
+    const rows = DC.activities.map((act) => { const r = act.quality ? DC.quality[q] : act; return { id: act.id, low: a[act.id] * r.low, high: a[act.id] * r.high }; });
+    const low = rows.reduce((s, r) => s + r.low, 0) * st.days, high = rows.reduce((s, r) => s + r.high, 0) * st.days;
+    const units = Math.round(high * 100);   // centi-MB, as in Python: 10,000 MB x 1.15 stays 11.5 GB
+    return { rows, low, high, target: Math.ceil(units * 115 / 5e6) * 0.5 };
+  }
+  function matchPlan(plans, days, target) {
+    if (target <= 0) return { why: 'zero' };
+    if (!plans.some((p) => p.days >= days)) return { why: 'days' };
+    if (plans[0].unl) return { best: plans.filter((p) => p.days >= days).sort((x, y) => x.usd - y.usd || x.days - y.days)[0], why: 'unl' };   // Unlimited-only destination
+    const order = (x, y) => x.usd - y.usd || x.gb - y.gb || x.days - y.days;
+    const fit = plans.filter((p) => p.days >= days && p.gb >= target).sort(order);
+    if (!fit.length) return { why: 'data' };
+    return { best: fit[0], next: plans.filter((p) => p.days >= days && p.gb > fit[0].gb).sort(order)[0] };
+  }
+
+  function mountCalc() {
+    const page = document.querySelector('[data-calc-page]'); if (!page) return;
+    const form = page.querySelector('[data-dc-form]'), out = page.querySelector('[data-dc-result]');
+    const destSel = page.querySelector('#dc-dest'), daysIn = page.querySelector('#dc-days'), segs = [...page.querySelectorAll('[data-preset]')];
+    const fields = [...page.querySelectorAll('[data-act]')], qual = page.querySelector('[data-quality]'), custom = page.querySelector('[data-dc-custom]');
+    const live = h('p', { class: 'sr-only', 'aria-live': 'polite' }); out.after(live);
+    const ACT = Object.fromEntries(DC.activities.map((a) => [a.id, a]));
+    const [dMin, dMax] = DC.limits.days;
+    const inRange = (act, v) => { const [lo, hi] = DC.limits[act.unit]; return Number.isFinite(v) && v >= lo && v <= hi; };
+    const fromPreset = (p) => ({ preset: p, quality: DC.presets[p].quality, a: { ...DC.presets[p].a } });
+    const defaults = () => ({ dest: DC.default.dest, days: DC.default.days, ...fromPreset(DC.default.preset) });
+    let notice = '';
+
+    function readUrl() {
+      const ps = new URLSearchParams(location.search), st = defaults();
+      if (ps.has('v') && ps.get('v') !== '1') { notice = 'dc.notice.ver'; return st; }
+      let bad = false;
+      if (ps.has('dest')) st.dest = DC_PLANS[ps.get('dest')] ? ps.get('dest') : 'other';
+      if (ps.has('d')) { const d = Number(ps.get('d')); if (Number.isInteger(d) && d >= dMin && d <= dMax) st.days = d; else bad = true; }
+      const p = ps.get('p');
+      if (p && DC.presets[p]) Object.assign(st, fromPreset(p));
+      else if (p === 'custom') {
+        const vals = (ps.get('a') || '').split(',').map(Number), q = ps.get('q');
+        if (vals.length === DC.activities.length && DC.activities.every((act, i) => inRange(act, vals[i])) && DC.quality[q]) {
+          st.preset = 'custom'; st.quality = q; st.a = Object.fromEntries(DC.activities.map((act, i) => [act.id, vals[i]]));
+        } else bad = true;
+      } else if (p) bad = true;
+      if (bad) notice = 'dc.notice.bad';
+      return st;
+    }
+    let st = readUrl();
+
+    function query(s) {
+      const ps = new URLSearchParams({ v: '1', dest: s.dest, d: String(s.days), p: s.preset });
+      if (s.preset === 'custom') { ps.set('q', s.quality); ps.set('a', DC.activities.map((a) => s.a[a.id]).join(',')); }
+      return ps.toString();
+    }
+    let urlTimer;
+    function saveUrl() {
+      clearTimeout(urlTimer);
+      urlTimer = setTimeout(() => {
+        try { history.replaceState(null, '', `${location.pathname}?${query(st)}${location.hash}`); } catch (e) { /* file:// and sandboxed frames */ }
+        live.textContent = summary(estimate(st));
+      }, 300);
+    }
+
+    const nf = (v, min, max) => new Intl.NumberFormat(store.state.lang, { minimumFractionDigits: min, maximumFractionDigits: max }).format(v);
+    function gb(mb, digits = 1) {
+      const v = mb / 1000, step = 10 ** -digits;
+      if (v > 0 && v < step / 2) return t('dc.r.less', { v: `${nf(step, digits, digits)} GB` });
+      return `${nf(v, digits, digits)} GB`;
+    }
+    const targetGb = (e) => `${nf(e.target, 0, 1)} GB`;
+    const span = (lo, hi, digits = 1) => {   // "4.4–10.0 GB": one unit, unless an end is "less than 0.1 GB"
+      const a = gb(lo, digits), b = gb(hi, digits), unit = / GB$/;
+      return lo / 1000 >= 10 ** -digits / 2 ? [a.replace(unit, ''), b] : [a, b];
+    };
+    const range = (e) => { const [low, high] = span(e.low, e.high), [dlow, dhigh] = span(e.low / st.days, e.high / st.days, 2); return { low, high, dlow, dhigh }; };
+    const summary = (e) => (e.high > 0 ? `${t('dc.r.plan', { gb: targetGb(e) })}. ${t('dc.r.est', range(e))}` : t('dc.r.zero'));
+    const planName = (p) => `${p.unl ? t('pd.unl') : `${p.gb}GB`} · ${t('pd.days', { n: p.days })}`;
+
+    function fill() {   // inputs follow the state (load, presets, reset)
+      destSel.value = st.dest; daysIn.value = st.days; qual.value = st.quality;
+      fields.forEach((f) => (f.value = st.a[f.dataset.act]));
+    }
+    function render() {
+      segs.forEach((b) => b.setAttribute('aria-checked', String(b.dataset.preset === st.preset)));
+      custom.hidden = st.preset !== 'custom';
+      const e = estimate(st);
+      out.textContent = '';
+      if (notice) out.append(h('p', { class: 'dc-notice' }, t(notice)));
+      if (e.high <= 0) { out.append(h('p', { class: 'dc-big dc-big--zero' }, t('dc.r.zero'))); }
+      else {
+        out.append(h('p', { class: 'dc-big' }, t('dc.r.plan', { gb: targetGb(e) })), h('p', { class: 'dc-extra' }, t('dc.r.extra')),
+                   h('p', { class: 'dc-sum' }, t('dc.r.est', range(e))));
+        const top = [...e.rows].sort((x, y) => y.high - x.high).slice(0, 3).filter((r) => r.high > 0);
+        out.append(h('div', { class: 'dc-top' }, h('h3', {}, t('dc.r.top')), h('ul', {}, top.map((r) => {
+          const mb = r.high * st.days, pct = (100 * mb) / e.high, bar = h('i'); bar.style.width = `${pct.toFixed(1)}%`;
+          return h('li', {}, h('span', { class: 'dc-bar-l' }, t(`dc.a.${r.id}`)), h('span', { class: 'dc-bar-v' }, `${gb(mb)} · ${Math.round(pct)}%`),
+                   h('span', { class: 'dc-bar', 'aria-hidden': 'true' }, bar));
+        }))));
+        const plan = h('div', { class: 'dc-plan' });
+        if (st.dest === 'other') { const p = h('p', { class: 'dc-plan-why rich' }); p.innerHTML = t('dc.r.other'); plan.append(p); }
+        else {
+          const country = t(`d.${st.dest}`), m = matchPlan(DC_PLANS[st.dest], st.days, e.target);
+          const all = h('a', { class: 'dc-plan-go', href: `${st.dest}-esim.html` }, t('dc.r.all', { country }));
+          if (m.best) {
+            plan.append(h('p', { class: 'dc-plan-k' }, t('dc.r.match')), h('p', { class: 'dc-plan-n' }, `${country} eSIM · ${planName(m.best)}`),
+                        h('p', { class: 'dc-plan-p' }, money(m.best.usd)), h('a', { class: 'dc-plan-go', href: m.best.url }, t('dc.r.see')));
+            if (m.why === 'unl') plan.append(h('p', { class: 'dc-plan-next' }, t('dc.r.unl', { country })));
+            if (m.next) plan.append(h('p', { class: 'dc-plan-next' }, `${t('dc.r.next')} `, h('a', { href: m.next.url }, `${planName(m.next)} · ${money(m.next.usd)}`)));
+          } else {
+            const max = Math.max(...DC_PLANS[st.dest].map((p) => p.days));
+            const why = m.why === 'days' ? t('dc.r.nodays', { n: st.days, max }) : t('dc.r.nodata', { gb: targetGb(e) });
+            plan.append(h('p', { class: 'dc-plan-why' }, why), ...(m.why === 'data' && DC_UNL.includes(st.dest) ? [h('p', { class: 'dc-plan-next' }, t('dc.r.unlalso', { country }))] : []), all);
+          }
+        }
+        out.append(plan);
+      }
+      page.querySelectorAll('[data-ex]').forEach((el) => {   // example cards use the same function as the tool
+        const ex = DC.examples.find((x) => x.id === el.dataset.ex);
+        const s = ex.preset === 'custom' ? { days: ex.days, preset: 'custom', quality: ex.quality, a: ex.a } : { days: ex.days, preset: ex.preset };
+        const r = estimate(s);
+        const [lo, hi] = span(r.low, r.high);
+        el.textContent = `${t('dc.r.plan', { gb: targetGb(r) })} · ${lo}–${hi}`;
+      });
+    }
+    const update = () => { notice = ''; render(); saveUrl(); };
+
+    destSel.addEventListener('change', () => { st.dest = destSel.value; update(); });
+    const setDays = (d) => { st.days = Math.min(dMax, Math.max(dMin, Math.round(d))); daysIn.value = st.days; update(); };
+    daysIn.addEventListener('input', () => { const d = Number(daysIn.value); if (daysIn.value !== '' && Number.isInteger(d) && d >= dMin && d <= dMax) { st.days = d; update(); } });
+    daysIn.addEventListener('change', () => setDays(Number.isFinite(Number(daysIn.value)) && daysIn.value !== '' ? Number(daysIn.value) : st.days));
+    page.querySelectorAll('[data-step]').forEach((b) => b.addEventListener('click', () => setDays(st.days + Number(b.dataset.step))));
+    segs.forEach((b, i) => {
+      b.addEventListener('click', () => { Object.assign(st, fromPreset(b.dataset.preset)); fill(); update(); });
+      b.addEventListener('keydown', (ev) => {   // arrow keys move along the radio group
+        const k = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[ev.key]; if (!k) return;
+        ev.preventDefault(); const nb = segs[(i + k + segs.length) % segs.length]; nb.focus(); nb.click();
+      });
+    });
+    fields.forEach((f) => {
+      const act = ACT[f.dataset.act];
+      f.addEventListener('input', () => { const v = Number(f.value); if (f.value !== '' && inRange(act, v)) { st.a[act.id] = v; st.preset = 'custom'; update(); } });
+      f.addEventListener('change', () => {   // on blur: put back a valid number (empty or out of range)
+        const [lo, hi] = DC.limits[act.unit], v = Number(f.value);
+        const ok = f.value !== '' && Number.isFinite(v) ? Math.min(hi, Math.max(lo, v)) : st.a[act.id];
+        if (ok !== st.a[act.id]) { st.a[act.id] = ok; st.preset = 'custom'; update(); }
+        f.value = st.a[act.id];
+      });
+    });
+    qual.addEventListener('change', () => { st.quality = qual.value; st.preset = 'custom'; update(); });
+    page.querySelector('[data-dc-reset]').addEventListener('click', () => { st = defaults(); fill(); update(); destSel.focus(); });
+    form.addEventListener('submit', (ev) => ev.preventDefault());
+
+    fill(); render(); store.subscribe(render);
+  }
+  // Browser check of the shared fixtures (run from the console on the calculator page: await LS.calcSelfTest())
+  window.LS = Object.assign(window.LS || {}, {
+    async calcSelfTest() {
+      const fx = await (await fetch('tools/data/data_calc_fixtures.json')).json(), bad = [];
+      fx.estimate.forEach((f) => {
+        const e = estimate(f.in), got = [Math.round(e.low * 1e6) / 1e6, Math.round(e.high * 1e6) / 1e6, e.target];
+        if (got.join() !== [f.low_mb, f.high_mb, f.target_gb].join()) bad.push({ f, got });
+      });
+      fx.match.forEach((f) => {
+        const m = matchPlan(DC_PLANS[f.dest], f.days, f.target_gb);
+        if ((m.best ? m.best.id : null) !== f.plan || (f.plan && (m.next ? m.next.id : undefined) !== f.next) || (!f.plan && m.why !== f.reason)) bad.push({ f, m });
+      });
+      return { checked: fx.estimate.length + fx.match.length, failed: bad };
+    },
+  });
+
   /* ---------- package choice: the live plan URL (/usa-esim/5gb-7days) is the destination page with one package picked ----------
      Here that is usa-esim.html?plan=5gb-7days. A fixed bar shows the pick, its price and "Buy now" (checkout stays on lemonsim.com). */
   function mountPlans() {
@@ -604,7 +783,7 @@
   document.addEventListener('DOMContentLoaded', () => {
     startAtTop();
     collect(document.body);
-    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountPlans(); mountCompat(); mountCompatPage(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
+    mountHeader(); mountHero(); mountPageHero(); mountDetail(); mountPlans(); mountCompat(); mountCompatPage(); mountCalc(); mountNewsletter(); mountContact(); applyI18n(); refineByTrace();
     store.subscribe(applyI18n);
   });
 })();

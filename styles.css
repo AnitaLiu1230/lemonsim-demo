@@ -92,7 +92,7 @@
 .foot-grid>div>div.grid>a{display:flex;align-items:center;min-height:24px}
 .foot-tag{margin:12px 0 0;max-width:260px;font-size:14px;line-height:22px;color:rgba(255,255,255,.7)}
 .foot-label{margin:16px 0 0;font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.55)}
-.foot-brand .foot-mail{display:inline-block;margin-top:4px;font-size:14px;font-weight:700;line-height:24px}
+.foot-brand .foot-mail{display:inline-block;margin-top:12px;font-size:14px;font-weight:700;line-height:24px}
 .foot-pay .pay-badges{margin-top:12px!important}
 .foot-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:10px 24px;padding-block:18px 24px;border-top:1px solid rgba(255,255,255,.1);font-size:13px;font-weight:700;color:rgba(255,255,255,.6)}
 .foot-bar p{margin:0}

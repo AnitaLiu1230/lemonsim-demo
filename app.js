@@ -431,6 +431,7 @@
         <div class="compat-brands" role="group" aria-labelledby="compat-title"></div>
         <p class="compat-count" role="status" aria-live="polite"></p>
         <ul class="compat-list" aria-labelledby="compat-title"></ul>
+        <p class="compat-listnote" hidden><i class="iconfont icon-question" aria-hidden="true"></i><span data-i18n="cmp.listnote"></span></p>
         <div class="compat-none" hidden><b data-i18n="cmp.none"></b><p class="rich" data-i18n-html="cmp.none.p"></p></div>
         <details class="compat-more"><summary data-i18n="cmp.settings"></summary><ul><li data-i18n="cmp.settings1"></li><li data-i18n="cmp.settings2"></li></ul></details>
       </div>
@@ -440,11 +441,11 @@
         <p class="compat-text" data-i18n="cmp.sim.dual"></p>
         <p class="compat-text rich" data-i18n-html="cmp.sim.esim"></p>
       </div>
-      <details class="compat-more"><summary data-i18n="cmp.unlock"></summary><p data-i18n="cmp.unlock.p"></p></details>
-      <p class="compat-foot" data-i18n="cmp.foot"></p>`;
+      <details class="compat-more"><summary data-i18n="cmp.unlock"></summary><p data-i18n="cmp.unlock.p"></p></details>`;
     document.body.append(dlg);
     const q = dlg.querySelector('#cmp-q'), list = dlg.querySelector('.compat-list'), none = dlg.querySelector('.compat-none');
     const count = dlg.querySelector('.compat-count'), brands = dlg.querySelector('.compat-brands');
+    const listnote = dlg.querySelector('.compat-listnote');
     let brand = 'all', opener = null;
     ['all', ...Object.keys(PHONES)].forEach((b) => {
       const chip = h('button', { type: 'button', class: 'compat-chip', 'data-brand': b, 'aria-pressed': String(b === 'all') });
@@ -468,6 +469,7 @@
       });
       list.hidden = browsing;
       none.hidden = browsing || n > 0;
+      listnote.hidden = browsing || n === 0;
       count.textContent = browsing ? '' : t('cmp.count', { n });
     }
     q.addEventListener('input', render);

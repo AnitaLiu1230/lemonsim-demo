@@ -389,7 +389,7 @@ header.absolute nav a,header.absolute .logo-sim,header.absolute a.font-display{t
 
 /* ================= v15 ================= */
 /* checker */
-.compat-fastnote{margin:6px 0 0;font-size:12px;font-weight:700;color:rgba(78,64,42,.7)}
+.compat-fastnote{margin:8px 0 0;padding-top:8px;border-top:1px solid rgba(255,255,255,.14);font-size:12.5px!important;font-weight:600!important;color:rgba(255,248,230,.72)}
 
 /* About hero: flights between the destinations */
 .phero-stats{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
@@ -482,3 +482,20 @@ body.has-pbar .demo-badge{bottom:calc(var(--pbar-h,96px) + 10px)}
   .pbar-demo{white-space:nowrap;font-size:10px}.pbar-name{font-size:15px}
   .pdlg-list div{grid-template-columns:1fr;gap:2px}
 }
+
+/* v17: checker caption, review line, About "what to expect", trust row */
+.compat-listnote{display:flex;gap:6px;align-items:flex-start;margin:10px 0 0;font-size:12px;line-height:1.5;font-weight:600;color:#6b5a3e}
+.compat-listnote .iconfont{font-size:12px;margin-top:2px}
+.reviewed{display:inline-flex;flex-wrap:wrap;align-items:center;gap:6px;margin:18px 0 0;padding:6px 12px;border-radius:999px;background:rgba(253,211,58,.22);font-size:12.5px;font-weight:700;color:#5a4a30}
+.reviewed .iconfont{font-size:12px;color:#3f7a2a}
+.reviewed a{text-decoration:underline;text-underline-offset:2px;color:inherit}
+.ab-expect{list-style:none;margin:32px 0 0;padding:0;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.ab-expect li{padding:20px;border-radius:16px;background:#fffdf5;border:1px solid rgba(253,211,58,.45);box-shadow:0 8px 24px rgba(33,24,15,.05)}
+.ab-expect h3{margin:0;font-size:16px;font-weight:800;color:var(--ink-900)}
+.ab-expect p{margin:8px 0 0;font-size:14px;line-height:1.65;font-weight:600;color:rgba(56,45,29,.78)}
+.ab-expect a{font-weight:800;text-decoration:underline;text-underline-offset:2px}
+.trust-row{list-style:none;margin:16px 0 0;padding:12px 0 0;border-top:1px solid rgba(78,64,42,.14);display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 16px;font-size:12.5px;font-weight:700;color:var(--ink-800)}
+.trust-row li{display:flex;align-items:center;gap:7px;min-width:0}
+.trust-row .iconfont{font-size:13px;color:#a47b00}
+.trust-row a,.trust-row .link-btn{font-weight:800;color:inherit;text-decoration:underline;text-underline-offset:2px}
+.trust-row + .buy-note{margin-top:10px;padding-top:0;border-top:0}

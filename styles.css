@@ -1,4 +1,6 @@
 /* Demo-only styles. Everything outside the hero uses the live site's own stylesheet (assets/live/entry.css). */
+/* hidden must win over layout utilities like .grid / .flex (plan lists, blog pager, checker results) */
+[hidden]{display:none!important}
 :root{
   --lemon-300:#ffe066; --lemon-400:#fdd33a; --ink-900:#21180f; --ink-800:#382d1d;
   --shadow:0 10px 30px rgba(33,24,15,.12);
